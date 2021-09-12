@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Home Page</title>
+{% endblock title %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+{% endblock style %}
+
+{% block content %}
+
+    <div id="loginForm">
+        <form id="form" action="/login/" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input required value="root" type="text" class="form-control username" id="username" name="username" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input required value="g@g.com" type="email" class="form-control email" id="email" name="email" aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input required value="admin" name="password" type="password" class="form-control password" id="password">
+            </div>
+            
+            <div class="login__link">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="#" class="create__link">Doesn't have an account? Create one!</a>
+            </div>
+          </form>
+    </div>
+
+    <div id="signupForm">
+        <form id="form" action="/signup/" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input required value="root" type="text" class="form-control username" id="username" name="username" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input required value="g@g.com" type="email" class="form-control email" id="email" name="email" aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input required value="admin" name="password" type="password" class="form-control password" id="password">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Confirm Password</label>
+                <input required value="admin" name="confirm" type="password" class="form-control password" id="password">
+            </div>
+            <div class="login__link">
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a href="#" class="back__link">Back to Login!</a>
+            </div>
+          </form>
+    </div>
+
+    <div id="addForm">
+        <form id="form" action="/post/add/" method="POST" class="row g-3" enctype='multipart/form-data'>
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="name" class="form-label">Event Name</label>
+                <input required type="text" class="form-control name" id="name" name="name" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="data" class="form-label">Description</label>
+              <textarea name="data" class="form-control" value="" id="" cols="30" rows="4"></textarea>
+            </div>
+
+            <div class="col-md-6">
+              <label for="Date Time" class="form-label">Date Time</label>
+              <input type="datetime-local" class="form-control" name="time" id="" required>
+            </div>
+            <div class="col-md-6">
+                <label for="Location" class="form-label">Location</label>
+                <input type="text" class="form-control" name="location" id="" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Event Image</label>
+                <input class="form-control" type="file" name="image" id="image_file" accept=".jpg, .jpeg, .png">
+              </div>
+            
+            <div class="login__link">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="navbar">
+        <div class="left">
+            <div class="left__heading">HOME</div>
+        </div>
+        <div class="right">
+
+            {% if request.user.is_authenticated %}
+                <div class="add">
+                    <div class="add__logo">
+                        <i class="material-icons">add</i>
+                    </div>
+                </div>
+                <div class="love">
+                    <div class="love__logo">
+                        <i class="material-icons">favorite_border</i>
+                    </div>
+                </div>
+                <div class="profile">
+                    <form action="/logout/" method="get">
+                        <button type="submit" class="profile__button">Logout</button>
+                    </form>
+                </div>
+            {% else %}
+                <div class="profile">
+                    <button class="profile__button" id="signin">Sign in</button>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block script %}
+    <script>
+        $("#signin").click(function() {
+            alertify.closeAll();
+            $("#loginForm").show();
+            alertify.alert('SIGNIN', $("#loginForm")[0]).set('label', 'Close!'); 
+        })
+        $(".add__logo").click(function() {
+            alertify.closeAll();
+            $("#addForm").show();
+            alertify.alert('Add Event', $("#addForm")[0]).set('label', 'Close!'); 
+        })
+        $(".love__logo").click(function() {
+            window.location.href = `/profile/likes/`;
+        });
+        $(".left__heading").click(function() {
+            window.location.href = `/`;
+        });
+
+        $(".create__link").click(function() {
+            alertify.closeAll();
+            $("#signupForm").show();
+            alertify.alert('Create Account', $("#signupForm")[0]).set('label', 'Close!');
+        })
+
+        $(".back__link").click(function() {
+            alertify.closeAll();
+            window.location.reload()            
+        })
+
+    </script>
+{% endblock script %}

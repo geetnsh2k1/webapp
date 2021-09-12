@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Home Page</title>
+{% endblock title %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock style %}
+
+{% block content %}
+    {% include 'nav.html' %}
+    
+    <div class="content">
+       <div class="heading">Likes</div>
+
+            {% for Post in Liked %}
+                <div class="box">
+                    <div class="event__image">
+                        <img src="{{Post.image.url}}" alt="" srcset="" class="box__image">
+                    </div>
+                    <div class="event__details">
+                        <div class="top">
+                            <div class="event__name">{{Post.event_name}}</div>
+                            <div class="about__event">{{Post.data}}</div>
+                        </div>
+                        <div class="bottom">
+                            <div class="event__location">{{Post.location}}</div>
+                            <div class="time__love">
+                                <div class="event__time">{{Post.time}}</div>
+                                <div class="like__logo">
+                                    <i class="material-icons like__button number-{{Post.id}}">favorite</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+    </div>
+
+{% endblock content %}
+
+{% block script %}
+    <script>
+        const user_authenticated = "{{request.user.is_authenticated}}"
+    </script>
+    <script src="{% static 'js/home.js' %}"></script>
+{% endblock script %}

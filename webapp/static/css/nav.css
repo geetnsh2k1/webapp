@@ -1,0 +1,89 @@
+#loginForm, #addForm, #signupForm{
+    display: none;
+}
+
+#loginForm, #signupForm, #addForm {
+    width: 80%;
+    margin-left: 10%;
+}
+
+.login__link{
+    display: flex; 
+    flex-direction: row; 
+    justify-content:space-between;
+}
+
+.create__link {
+    margin-top: 10px;
+}
+
+
+.navbar {
+    position: fixed;
+    height: 100px;
+    z-index: 1;
+    width: 100%;
+    background-color: #171717;
+}
+
+.left {
+    position: fixed;
+    left: 20px;
+} 
+
+.left__heading {
+    font-size: 2.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 2.5px;
+    color: #BD1616;
+}
+
+.right {
+    position: fixed;
+    right: 20px;
+    color: white;
+}
+
+.love {
+    position: inherit;
+    cursor: pointer;
+    right: 150px;
+}
+
+.love__logo {
+    position: relative;
+    top: 12.5px;
+}
+
+.love__logo:hover {
+    color: #BD1616;
+}
+
+.add {
+    position: inherit;
+    cursor: pointer;
+    right: 200px;
+}
+
+.add__logo {
+    position: relative;
+    top: 12.5px;
+}
+
+.add__logo:hover {
+    color: #BD1616;
+}
+
+.profile__button {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 10px 15px;
+    text-transform: uppercase;
+}
+
+.profile__button:hover {
+    border: 1px solid #BD1616;
+}
